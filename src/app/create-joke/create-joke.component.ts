@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 // FormGroup : group of form control
 import {FormGroup, FormBuilder, Validators} from '@angular/forms'
 import { JokeService } from '../services/joke.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-create-joke',
@@ -15,7 +17,9 @@ export class CreateJokeComponent implements OnInit {
 
   constructor(
           private fb: FormBuilder,
-          private jokeService: JokeService
+          private jokeService: JokeService,
+          private router: Router,
+          private authService: AuthService
         ) { 
           this.createForm();
   }
@@ -49,10 +53,11 @@ export class CreateJokeComponent implements OnInit {
 
   onSubmit(){
     
-    console.log(this.jokeForm.value);
     this.jokeService.createJoke(this.jokeForm.value)
                     .then( res=>{
                       console.log("aftr create j" ,res);
+                      this.router.navigate(
+                        ['/user/profile', this.authService.getAuthUserId()])
                     })
   }
 }

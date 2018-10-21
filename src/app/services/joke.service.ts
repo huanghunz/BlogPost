@@ -42,4 +42,27 @@ export class JokeService{
                              return res;
                          });
     }
+
+    getAllJokes(endPoints = null){
+
+        this.progressBarService.start();
+
+        let url;
+        if (endPoints != null){
+            url = endPoints;
+        }
+        else{
+            url = `${CONFIG.API_URL}/jokes`;
+        }
+        let options = {
+            headers: this.headers
+        }
+
+        return this.httpc.get(url, options)
+                         .toPromise()
+                         .then(res =>{
+                            this.progressBarService.complete();
+                             return res;
+                         });
+    }
 }

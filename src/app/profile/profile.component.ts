@@ -24,17 +24,19 @@ export class ProfileComponent implements OnInit {
     //access the data
     this.router.params.subscribe((params)=>{
       this.id = +params['id']; // '+' convert it to an int
-    });
 
-    this.userService.getUserById(this.id)
+      this.userService.getUserById(this.id)
                     .then((user)=>{
                       this.user = user;
                     })
 
-    this.userService.userProfileUpdated.subscribe(
+      this.userService.userProfileUpdated.subscribe(
                     (user) =>{
                       this.user = user;
                     })
+    });
+
+    
 
   }
 

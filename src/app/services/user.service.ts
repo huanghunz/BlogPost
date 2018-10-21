@@ -42,7 +42,7 @@ export class UserService{
     }
 
     getUserWall(id: number): Promise<any> {
-       
+        this.progressBarService.start();
         const httpOptions = {
             headers: this.headers
           };
@@ -51,6 +51,7 @@ export class UserService{
         return this.httpc.get(url, httpOptions)
                     .toPromise()
                     .then(res =>{
+                        this.progressBarService.complete();
                         return res;
                     });
 

@@ -16,6 +16,14 @@
             </a>
 
         </li>
+
+        <li *ngIf="isLoggedIn() && user" 
+        [routerLink]="['user/profile',2]" >
+        <a role="button">
+          2 Profile
+        </a>
+
+    </li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">

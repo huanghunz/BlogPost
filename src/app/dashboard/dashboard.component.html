@@ -1,1 +1,29 @@
-<h1> Welcome </h1>
+<div *ngIf="data">
+    <div class="panel panel-default" *ngFor=" let joke of data.data">
+        <div class="panel-heading">
+            {{joke.title}}
+        </div>
+        <div class="panel=body">
+        <p class="text-left" style="padding: 18px">
+            {{joke.joke}}
+        </p>
+        </div>
+
+    </div>
+    <br>
+    <br>
+    <br>
+    <button class="btn btn-default"
+    [disabled]="!data.prev_page_url"
+    (click)="getPrevJokes()">
+        Previous Page
+    </button>
+    <button class="btn btn-default pull-right"
+    [disabled]="!data.next_page_url"
+    (click)="getNextJokes()">
+        Next Page
+    </button>
+    <br>
+    <br>
+    <br>
+</div>
