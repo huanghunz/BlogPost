@@ -58,11 +58,22 @@ export class JokeService{
             headers: this.headers
         }
 
-        return this.httpc.get(url, options)
-                         .toPromise()
-                         .then(res =>{
-                            this.progressBarService.complete();
-                             return res;
-                         });
+        return this.httpc.get<any>(url, options)
+                .toPromise()
+                .then(res =>{
+                    if (endPoints != null){
+                        this.progressBarService.complete();
+                        return res;
+                    }
+                    else{
+
+                        let lastPage 
+                        = `${CONFIG.API_URL}/jokes?page=${res.last_page}`
+                        console.log("enpoint null,  ", res.total );
+                        //this.progressBarService.complete();
+                        //return res;
+                        return this.getAllJokes(lastPage);
+                    }
+                });
     }
 }

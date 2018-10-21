@@ -28,6 +28,7 @@ import { FollowService } from './services/follow.service';
 import { CreateJokeComponent } from './create-joke/create-joke.component';
 import { JokeService } from './services/joke.service';
 import { ProgressBarService } from './services/progressbar.service';
+import { JokeComponent } from './joke/joke.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ProgressBarService } from './services/progressbar.service';
     WallComponent,
     EditProfileComponent,
     FollowComponent,
-    CreateJokeComponent
+    CreateJokeComponent,
+    JokeComponent
   ],
   imports: [
     BrowserModule,

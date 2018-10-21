@@ -8,20 +8,15 @@
     </div>
     <div>
       <ul class="nav navbar-nav">
-        <li><a>All jokes</a></li>
-        <li *ngIf="isLoggedIn() && user" 
-            [routerLink]="['user/profile', user.id]" >
-            <a role="button">
-              My Profile
-            </a>
-
-        </li>
-
-        <li *ngIf="isLoggedIn() && user" 
-        [routerLink]="['user/profile',2]" >
-        <a role="button">
-          2 Profile
-        </a>
+        <li><a *ngIf="isLoggedIn() && user" routerLink="/dashboard" role="button">
+            Dashboard
+        </a></li>
+        <li><a *ngIf="isLoggedIn() && user" routerLink="/create/joke" role="button">
+          Post a joke
+        </a></li>
+        <li><a *ngIf="isLoggedIn() && user" [routerLink]="['user/profile', user.id]" role="button">
+            My Profile
+        </a></li>
 
     </li>
       </ul>
@@ -29,11 +24,8 @@
       <ul class="nav navbar-nav navbar-right">
         <li *ngIf="!isLoggedIn()"><a routerLink="/auth/login">Login</a> </li>
         <li *ngIf="!isLoggedIn()"><a routerLink="/auth/register">Register</a> </li>
-        <li class="dropdown">
-          <a class="dropdown-toggle"
-              *ngIf="isLoggedIn()"
-              role="button"
-              (click)="logout()">
+        
+        <li *ngIf="isLoggedIn()"> <a role="button" (click)="logout()">
                 Logout
           </a>
         </li>

@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit {
     this.jokeService.getAllJokes(endPoints)
                     .then(res=>{
                       this.data = res;
+                      this.data.data = this.data.data.reverse();
                       console.log(this.data);
                     })
   }
@@ -32,5 +33,7 @@ export class DashboardComponent implements OnInit {
   getPrevJokes(){
     this.getJokes(this.data.prev_page_url);
   }
+
+  //todo: go to page
 
 }

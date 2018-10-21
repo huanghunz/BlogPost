@@ -99,3 +99,10 @@ ngModel: Creates a FormControl instance from a domain model
 - ex. path /heroes and displays the HeroListComponent
       as a sibling element to the RouterOutlet that you've
       placed in the host component's template.
+
+*******************************
+Reusing components
+
+- <div *ngFor="let joke of jokes">
+        <app-joke [joke]="joke"></app-joke>
+   </div>
