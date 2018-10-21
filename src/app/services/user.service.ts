@@ -3,6 +3,8 @@ import { AuthService } from "./auth.service";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CONFIG } from '../config/config'
 import { User } from "../data/user";
+import { ProgressBarService } from "./progressbar.service";
+
 @Injectable()
 export class UserService{
 
@@ -11,7 +13,8 @@ export class UserService{
     private headers: HttpHeaders;
 
     constructor(private authService: AuthService,
-                private httpc: HttpClient) {
+                private httpc: HttpClient,
+                private progressBarService: ProgressBarService) {
  
         const authorizationMsg = `Bearer ${this.authService.getToken()}`;
         this.headers = new HttpHeaders({
@@ -38,8 +41,24 @@ export class UserService{
 
     }
 
+    getUserWall(id: number): Promise<any> {
+       
+        const httpOptions = {
+            headers: this.headers
+          };
+
+        const url = `${CONFIG.API_URL}/user/profile/${id}/wall`
+        return this.httpc.get(url, httpOptions)
+                    .toPromise()
+                    .then(res =>{
+                        return res;
+                    });
+
+    }
+
     updateProfile(name: string, email: string):Promise<User>{
 
+        this.progressBarService.start();
         const url = `${CONFIG.API_URL}/user/update`
 
         const body ={
@@ -54,7 +73,7 @@ export class UserService{
         return this.httpc.put<any>(url, body, httpOptions)
                         .toPromise()
                         .then((res)=>{
-
+                            this.progressBarService.complete();
                             localStorage.setItem(CONFIG.USER, JSON.stringify(res));
 
                             const updatedUser = res.data as User;

@@ -5,14 +5,13 @@ import { CONFIG } from './../config/config'
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
 //import { catchError, map, tap } from 'rxjs/operators';
 import { UserData } from './../data/userData'
 import { User } from '../data/user'
 import {Router} from "@angular/router"
 import { NotifyService } from "./notify.service";
+import { ProgressBarService } from "./progressbar.service";
 
-import { NgProgress, NgProgressRef } from '@ngx-progressbar/core';
 
 
 const HTTP_OPTIONS = {
@@ -21,16 +20,14 @@ const HTTP_OPTIONS = {
 
 @Injectable()
 export class AuthService{
-    
-    private progressRef: NgProgressRef;
 
     constructor(private http: HttpClient,
                 private router: Router,
                 private notifyService: NotifyService,
-                private ngProgress: NgProgress){
+                private progressBarService: ProgressBarService){
 
-        this.progressRef = this.ngProgress.ref();
     }
+    
 
     register(name: string, email: string, password: string)
     :Promise<UserData>
@@ -54,13 +51,13 @@ export class AuthService{
 
     login(email: string, password: string):Promise<UserData>
     {
-        this.progressRef.start();
+        this.progressBarService.start();
 
         const authenticateURL = `${CONFIG.API_URL}/authenticate`;
         return this.http.post<UserData>(authenticateURL,{ email: email, password: password}, HTTP_OPTIONS)
             .toPromise()
             .then(res =>{
-                this.progressRef.complete();
+                this.progressBarService.complete();
                 return res as UserData;
             })
     }

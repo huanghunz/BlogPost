@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-md-8 col-md-offset-1">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Create joke
+        </div>
+        <div class="panel-body">
+          <form [formGroup]="jokeForm"  (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label>Joke title</label>
+              <input type="text" class="form-control" formControlName="title">
+              <div *ngIf=" jokeForm.get('title').errors && (
+                           jokeForm.get('title').touched || jokeForm.get('title').dirty)"
+                          class ="aler alert-danger">
+                  <small [hidden]="!jokeForm.get('title').hasError('minlength')">
+                      Mininum of 5 characters is required.
+                    </small>
+                  <small [hidden]="!jokeForm.get('title').hasError('required')">
+                      Content can not be empty
+                  </small>
+              </div>  
+            </div>
+            <div class="form-group" name="content">
+              <label>Joke content</label> 
+              <textarea cols="5" rows="5" class="form-control"  formControlName="content"></textarea>
+              <div *ngIf=" jokeForm.get('content').errors && (
+                          jokeForm.get('content').touched 
+                          ||
+                          jokeForm.get('content').dirty)"
+              
+                 class ="aler alert-danger">
+                 <small [hidden]="!jokeForm.get('content').hasError('minlength')">
+                    Mininum of 5 characters is required.
+                  </small>
+                <small [hidden]="!jokeForm.get('content').hasError('required')">
+                    Content can not be empty
+                </small>
+              </div>
+            </div>
+            <div class="form-group text-center">
+              <button class="btn btn-info"
+                      [disabled]="jokeForm.invalid">
+                      
+                Create Joke
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

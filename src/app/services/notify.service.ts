@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from "@angular/core";
-import { Message} from './../data/message'; // todo
+import { Message} from './../data/message';
 
 
 @Injectable()

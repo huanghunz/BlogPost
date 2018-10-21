@@ -4,25 +4,21 @@ import { HttpClient, HttpHeaders} from "@angular/common/http"
 import { NotifyService } from "./notify.service";
 import { CONFIG } from "../config/config";
 import { AuthService } from "./auth.service";
-import { NgProgress, NgProgressRef } from '@ngx-progressbar/core';
-
+import { ProgressBarService } from "./progressbar.service";
 
 @Injectable()
 export class FollowService{
 
     headers: HttpHeaders;
-    progressRef: NgProgressRef
 
     constructor(private httpc: HttpClient,
                private notify: NotifyService,
                private authService: AuthService,
-               private ngProgress: NgProgress){
+               private progressBarService: ProgressBarService){
                 const authorizationMsg = `Bearer ${this.authService.getToken()}`;
                 this.headers = new HttpHeaders({
                      'Authorization': authorizationMsg, 
                 })
-
-                this.progressRef = this.ngProgress.ref();
                }
 
     isFollowing(id: number): Promise<Boolean>{
@@ -44,7 +40,7 @@ export class FollowService{
 
     follow(id: number){
 
-        this.progressRef.start();
+        this.progressBarService.start();
         const followURL = `${CONFIG.API_URL}/user/follow`;
         const body = {
             user_to_follow_id: id
@@ -57,14 +53,14 @@ export class FollowService{
         return this.httpc.post(followURL, body, options)
                         .toPromise()
                         .then( (res)=>{
-                            this.progressRef.complete();
+                            this.progressBarService.complete();
                             return res;
                         })
     }
 
     unfollow(id: number){
 
-        this.progressRef.start();
+        this.progressBarService.start();
         const followURL = `${CONFIG.API_URL}/user/unfollow`;
         const body = {
             user_to_unfollow_id: id
@@ -76,7 +72,7 @@ export class FollowService{
         return this.httpc.post(followURL, body, options)
                         .toPromise()
                         .then( (res)=>{
-                            this.progressRef.complete();
+                            this.progressBarService.complete();
                             return res;
                         })
     }
