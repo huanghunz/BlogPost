@@ -27,7 +27,7 @@ export class EditProfileComponent implements OnInit {
    this.userService.updateProfile(this.user.name, this.user.email)
                    .then((user)=>{
                      this.user = user;
-                     
+                    
                      this.notifyService.nofity("Profile updated!", 'success')
                    })
   }

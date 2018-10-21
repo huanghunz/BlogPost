@@ -1,12 +1,12 @@
-import { Injectable } from "@angular/core";
+import { Injectable, EventEmitter } from "@angular/core";
 import { AuthService } from "./auth.service";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CONFIG } from '../config/config'
-import {Headers, Http, RequestOptions} from "@angular/http";
 import { User } from "../data/user";
-import { UserData } from "../data/userData";
 @Injectable()
 export class UserService{
+
+    public userProfileUpdated: EventEmitter<User>
 
     private headers: HttpHeaders;
 
@@ -17,6 +17,7 @@ export class UserService{
          this.headers = new HttpHeaders({
              'Authorization': authorizationMsg, 
          })
+         this.userProfileUpdated = new EventEmitter<User>()
     }
 
     getUserById(id: number) : Promise<User>{
@@ -48,11 +49,17 @@ export class UserService{
 
         const httpOptions = { headers: this.headers };
 
-        return this.httpc.put<User>(url, body, httpOptions)
+        // HACK: Using <any> instead of <User> because 
+        //       the object structure is different than a User class
+        return this.httpc.put<any>(url, body, httpOptions)
                         .toPromise()
-                        .then( (res)=>{
+                        .then((res)=>{
+
                             localStorage.setItem(CONFIG.USER, JSON.stringify(res));
-                            return res as User;
+
+                            const updatedUser = res.data as User;
+                            this.userProfileUpdated.emit(updatedUser);
+                            return updatedUser;
                         })
     }
 }

@@ -52,8 +52,7 @@ export class AuthService{
         this.router.navigate(['/dashboard']);
     }
 
-    login(email: string, password: string)
-    :Promise<UserData>
+    login(email: string, password: string):Promise<UserData>
     {
         this.progressRef.start();
 
@@ -81,11 +80,11 @@ export class AuthService{
     }
 
     getAuthUser(): User{
-        return JSON.parse(localStorage.getItem(CONFIG.USER)).data;
+        return JSON.parse(localStorage.getItem(CONFIG.USER)).data as User;
     }
 
     getAuthUserId():number{
-        return JSON.parse(localStorage.getItem(CONFIG.USER)).data.id;
+        return +JSON.parse(localStorage.getItem(CONFIG.USER)).data.id;
     }
 
     getToken(): string {
