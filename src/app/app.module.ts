@@ -18,6 +18,7 @@ import { NotifyComponent } from './notify/notify.component';
 import { NotifyService } from './services/notify.service';
 import { ProfileComponent } from './profile/profile.component';
 import { UserService } from './services/user.service';
+import { PrettyDatePipe } from './pipes/prettify-date.pipe'
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { UserService } from './services/user.service';
     LoginComponent,
     NotifyComponent,
     ProfileComponent,
+    PrettyDatePipe
   ],
   imports: [
     BrowserModule,

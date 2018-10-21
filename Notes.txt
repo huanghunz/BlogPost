@@ -58,3 +58,14 @@ constructor vs ngOnInit
   Angular has finished initialising the component.
   The ngOnInit lifecycle hook is a guarantee
   that your bindings are readily available.
+
+
+*******************************
+What is Pipe in Angular?
+- Pipes are a useful feature in Angular. They are a simple way to
+transform values in an Angular template. There are some built in
+pipes, but you can also build your own pipes. A pipe takes in a
+value or values and then returns a value.
+
+- Naming convention
+-- ex. init-caps.pipe.ts

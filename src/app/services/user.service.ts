@@ -3,6 +3,7 @@ import { AuthService } from "./auth.service";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CONFIG } from '../config/config'
 import {Headers, Http, RequestOptions} from "@angular/http";
+import { User } from "../data/user";
 @Injectable()
 export class UserService{
 
@@ -17,26 +18,20 @@ export class UserService{
          })
     }
 
-    getUserById(id: number){
+    getUserById(id: number) : Promise<User>{
         if (id == this.authService.getAuthUserId()){
-            return this.authService.getAuthUser();
+            return Promise.resolve(this.authService.getAuthUser());
         }
 
         const HTTP_OPTIONS = {
             headers: this.headers
           };
 
-        //   let options = new RequestOptions({
-        //       headers: this.headers
-        //   })
-
-          console.log("id: ", id);
-
         const url = `${CONFIG.API_URL}user/${id}`
-        return this.httpc.get(url, HTTP_OPTIONS)
+        return this.httpc.get<User>(url, HTTP_OPTIONS)
                     .toPromise()
                     .then(res =>{
-                        console.log("user service: ", res);
+                        return res;
                     });
 
     }
