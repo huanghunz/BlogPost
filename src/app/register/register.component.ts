@@ -18,14 +18,10 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(form){
-   // console.log(form.value);
-
-   this.authService
-       .register(form.value.name, form.value.email, form.value.password)
-       .then( (userData) =>{
-         this.authService.LogUserIn(userData);
-       })
-    //alert("registered");
-// console.log("after: ", o);
+    this.authService
+      .register(form.value.name, form.value.email, form.value.password)
+      .then( (userData) =>{
+        this.authService.LogUserIn(userData);
+      })
   }
 }
