@@ -45,8 +45,8 @@ export class AuthService{
     }
 
     logUserIn(userData: UserData): void{
-        localStorage.setItem('jokerAppToken', userData.token);
-        localStorage.setItem('jokerAppUser', JSON.stringify(userData.user));
+        localStorage.setItem(CONFIG.TOKEN, userData.token);
+        localStorage.setItem(CONFIG.USER, JSON.stringify(userData.user));
 
         this.notifyService.nofity("Login Succeed!", 'success');
         this.router.navigate(['/dashboard']);
@@ -62,34 +62,34 @@ export class AuthService{
             .toPromise()
             .then(res =>{
                 this.progressRef.complete();
-                return new UserData(res.token, res.user);
+                return res as UserData;
             })
     }
 
     isLoggedIn():Boolean{
-        let token = localStorage.getItem('jokerAppToken');
-        let user = localStorage.getItem('jokerAppUser');
+        let token = localStorage.getItem(CONFIG.TOKEN);
+        let user = localStorage.getItem(CONFIG.USER);
         
         if (user && token) return true;
         return false;
     }
 
     logout(){
-        localStorage.removeItem('jokerAppToken');
-        localStorage.removeItem('jokerAppUser');
+        localStorage.removeItem(CONFIG.TOKEN);
+        localStorage.removeItem(CONFIG.USER);
         this.router.navigate(['/auth/login'])
     }
 
     getAuthUser(): User{
-        return JSON.parse(localStorage.getItem('jokerAppUser')).data;
+        return JSON.parse(localStorage.getItem(CONFIG.USER)).data;
     }
 
     getAuthUserId():number{
-        return JSON.parse(localStorage.getItem('jokerAppUser')).data.id;
+        return JSON.parse(localStorage.getItem(CONFIG.USER)).data.id;
     }
 
     getToken(): string {
-        return localStorage.getItem('jokerAppToken');
+        return localStorage.getItem(CONFIG.TOKEN);
     }
 
 }
