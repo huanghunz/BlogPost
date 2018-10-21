@@ -4,7 +4,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">Register</div>
         <div class="panel-body">
-          <form class="form-horizontal" #form="ngForm" novalidate (ngSumit)="onSubmit(form)">
+          <form class="form-horizontal" #form="ngForm" novalidate (ngSubmit)="onSubmit(form)">
             {{form.value | json }}  
             <!-- form value as json -->
 
@@ -13,7 +13,8 @@
                 The name is required
 
               </li>
-              <li class="list-group-item text-danger" *ngIf="userEmail.errors?.required && userEmail.touched">
+              <li class="list-group-item text-danger"
+                  *ngIf="userEmail.errors?.required && userEmail.touched">
                   Email is required
   
               </li>
@@ -31,14 +32,30 @@
               <label for="name" class="control-label col-md-4">Full name</label>
 
               <div class="col-md-6">
-                <input id="name" type="text" #userName="ngModel" ngModel name="name" class="form-control" required>
+                <input id="name" type="text" #userName="ngModel" ngModel name="name" class="form-control" required
+                minlength="5" maxlength="8">
+                <div *ngIf="userName.errors &&(userName.touched || userName.dirty)" class ="aler alert-danger">
+                  <small [hidden]="userName.errors?.minlength ">
+                      Username is required (minimum 5 characters).
+                  </small>
+                </div>
               </div>
             </div>
             <div class="form-group">
               <label for="name" class="control-label col-md-4">E-mail Address</label>
 
               <div class="col-md-6">
-                <input id="email" type="email" class="form-control" #userEmail="ngModel" ngModel name="email" required>
+                <input id="email" type="email" class="form-control"
+                        #userEmail="ngModel" ngModel name="email" required
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+                <div *ngIf="userEmail.errors &&(userEmail.touched || userEmail.dirty)" class ="aler alert-danger">
+                  <small [hidden]="!userEmail.errors?.pattern">
+                    Invalid pattern
+                  </small> 
+                  <small [hidden]="!userEmail.errors?.required">
+                      Email is required
+                  </small> 
+                </div> 
               </div>
             </div>
             <div class="form-group">
@@ -46,6 +63,14 @@
 
               <div class="col-md-6">
                 <input type="password" class="form-control" #userPassword="ngModel" ngModel name="password" minlength="6" required>
+                <div *ngIf="userPassword.errors &&(userPassword.touched || userPassword.dirty)" class ="aler alert-danger">                   
+                    <small [hidden]="!userPassword.errors?.minlength">
+                      Password must be longer than 6 characters
+                    </small> 
+                    <small [hidden]="!userEmail.errors?.required">
+                      Password is required
+                    </small> 
+                  </div> 
               </div>
             </div>
             <div class="form-group">
