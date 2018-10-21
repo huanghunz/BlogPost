@@ -18,7 +18,6 @@ export class ProfileComponent implements OnInit {
              private userService: UserService,
              private authService: AuthService) {
 
-       
               }
 
   ngOnInit() {
@@ -26,7 +25,6 @@ export class ProfileComponent implements OnInit {
     this.router.params.subscribe((params)=>{
       this.id = +params['id']; // '+' convert it to an int
     });
-
 
     this.userService.getUserById(this.id)
                     .then((user)=>{
@@ -43,5 +41,4 @@ export class ProfileComponent implements OnInit {
   isAuthUserProfile(): Boolean{
     return +this.id == +this.authService.getAuthUserId();
   }
-
 }

@@ -7,6 +7,7 @@ import { ProfileComponent } from '../profile/profile.component';
 
 import { WallComponent } from './../profile/wall/wall.component';
 import { EditProfileComponent } from './../profile/edit-profile/edit-profile.component';
+import { FollowComponent } from '../profile/follow/follow.component';
 
 
 export const ROUTES = [
@@ -36,6 +37,10 @@ export const ROUTES = [
             {
                 path: 'edit',
                 component: EditProfileComponent
+            },
+            {
+                path: 'follow',
+                component: FollowComponent
             }
         ]
     }

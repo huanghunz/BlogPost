@@ -87,3 +87,15 @@ ngModel: Creates a FormControl instance from a domain model
 
 [ngModel]="overRideRate" is to bind overRideRate to the input.value
 (ngModelChange)="overRideRate = $event" is to update overRideRate with the value of input.value when the change event was emitted.
+
+
+********************************
+<router-outlet></router-outlet>
+- The RouterOutlet is a directive from the router library
+  that is used like a component. It acts as a placeholder
+  that marks the spot in the template where the router should
+  display the components for that outlet.
+
+- ex. path /heroes and displays the HeroListComponent
+      as a sibling element to the RouterOutlet that you've
+      placed in the host component's template.

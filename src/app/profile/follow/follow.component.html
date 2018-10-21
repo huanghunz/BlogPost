@@ -1,0 +1,23 @@
+<div class="panel panel-default" *ngIf="!isLoading">
+    <div class="panel-body">
+      <div class="text-center">
+        <a class="btn btn-success"  
+           (click)="follow()"
+           *ngIf="!isFollowing"> Follow</a>
+      </div>
+      <div class="text-center">
+          <a class="btn btn-danger"
+            (click) = "unfollow()"
+            *ngIf="isFollowing">Unfollow</a>
+      </div>
+    </div>
+</div>
+
+<div class="panel panel-default" *ngIf="isLoading">
+    <div class="panel-body">
+        <div class="text-center">
+          <a class="btn btn-info disabled"  
+             > Loading...</a>
+        </div>
+      </div>
+</div>

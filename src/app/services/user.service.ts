@@ -12,12 +12,12 @@ export class UserService{
 
     constructor(private authService: AuthService,
                 private httpc: HttpClient) {
-                    this.authService.getToken(); 
+ 
         const authorizationMsg = `Bearer ${this.authService.getToken()}`;
-         this.headers = new HttpHeaders({
+        this.headers = new HttpHeaders({
              'Authorization': authorizationMsg, 
-         })
-         this.userProfileUpdated = new EventEmitter<User>()
+        })
+        this.userProfileUpdated = new EventEmitter<User>()
     }
 
     getUserById(id: number) : Promise<User>{
