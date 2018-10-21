@@ -11,9 +11,16 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li><a>Login</a> </li>
-        <li><a>Register</a> </li>
-        <li><a>Logout</a> </li>
+        <li *ngIf="!isLoggedIn()"><a routerLink="/auth/login">Login</a> </li>
+        <li *ngIf="!isLoggedIn()"><a routerLink="/auth/register">Register</a> </li>
+        <li class="dropdown">
+          <a class="dropdown-toggle"
+              *ngIf="isLoggedIn()"
+              role="button"
+              (click)="logout()">
+                Logout
+          </a>
+        </li>
       </ul>
     </div>
   </div>
@@ -21,5 +28,6 @@
 
 <div class="container">
   <!-- The outlet for the different components -->
+  <app-notify></app-notify>
   <router-outlet></router-outlet>
 </div>

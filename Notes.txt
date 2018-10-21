@@ -1,0 +1,60 @@
+*******************************
+
+Dependency Injection:
+- passing the instance as parameter instead of creating the instance within the class
+- Objects(class) can be configurable without breaking the code while changing the implmentation of the dependencies.
+
+Three types of DI:
+- constructor: 
+-- constructor(classB: ClassB)
+- setter
+-- setItem(item: Item)
+- interface
+-- the dependency provides an injector method that will inject the dependency into any client passed to it. Clients must implement an interface that exposes a setter method that accepts the dependency.
+
+Injection Comparison
+- check null
+
+*******************************
+
+
+*******************************
+Promise vs Observable
+Both Promises and Observables will help us work with the asynchronous functionalities in JavaScript. They are very similar in many cases, however, there are still some differences between the two as well, promises are values that will resolve in asynchronous ways like http calls. On the other hand, observables deal with sequence of asynchronous events. The main differences are listed as below:
+
+- Promise:
+-- having one pipe line
+-- usually only use with async data return
+-- not easy to cancel
+-- has ".then( )" function that makes the code flat.
+
+
+Observable:
+-- are cancellable
+-- are retriable by nature such as retry and retryWhen
+-- stream data in multiple pipe lines
+-- having array-like operations like map, filter etc
+-- can be created from other sources like events
+-- they are function, which could be subscribed later on
+
+
+******************************
+rxjs
+- Reactive Extensions for JavaScript is a library for transforming,
+  composing, and querying streams of data
+-- ex. import 'rxjs/operators';
+
+******************************
+constructor vs ngOnInit
+- The constructor method on an ES6 class (or TypeScript in this case)
+  is a feature of a class itself, rather than an Angular feature.
+  It’s out of Angular’s control when the constructor is invoked,
+  which means that it’s not a suitable hook to let you know
+  when Angular has finished initialising the component.
+- constructor: This is when we want to utilise dependency injection,
+  essentially for “wiring up” dependencies into the component.
+
+- ngOnInit: ngOnInit is purely there to give us a signal that
+  Angular has finished initialising the component.
+  The ngOnInit lifecycle hook is a guarantee
+  that your bindings are readily available.

@@ -1,7 +1,5 @@
 
-//Reactive Extensions for JavaScript is a library for transforming,
-//composing, and querying streams of data
-//import 'rxjs/add/operator/toPromise';
+
 import { Injectable } from "@angular/core";
 import { CONFIG } from './../config/config'
 
@@ -9,9 +7,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of, Observer } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { UserData } from './../userData/userData'
-import { User } from './../userData/user/user'
+import { UserData } from './../data/userData'
+import { User } from '../data/user'
 import {Router} from "@angular/router"
+import { NotifyService } from "./notify.service";
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -23,8 +22,8 @@ export class AuthService{
     public response:Observable<any>;
 
     constructor(private http: HttpClient,
-                private router: Router){
-        
+                private router: Router,
+                private notifyService: NotifyService){
     }
 
     register(name: string, email: string, password: string)
@@ -43,6 +42,7 @@ export class AuthService{
         localStorage.setItem('token', userData.token);
         localStorage.setItem('user', JSON.stringify(userData.user));
 
+        this.notifyService.nofity("Login Succeed!", 'success');
         this.router.navigate(['/dashboard']);
     }
 
@@ -62,6 +62,11 @@ export class AuthService{
         let user = localStorage.getItem('user');
         if (user && token) return true;
         return false;
-        
+    }
+
+    logout(){
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        this.router.navigate(['/auth/login'])
     }
 }

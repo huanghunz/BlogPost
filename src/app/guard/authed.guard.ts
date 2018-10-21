@@ -5,7 +5,7 @@ import {AuthService} from './../services/auth.service'
 
 
 @Injectable()
-export class AuthGurad implements CanActivate{
+export class AuthedGurad implements CanActivate{
 
     constructor(private authService: AuthService,
                 private router: Router){
@@ -13,9 +13,9 @@ export class AuthGurad implements CanActivate{
     }
 
     canActivate() {
-        if (this.authService.isLoggedIn()) return true;
+        if (!this.authService.isLoggedIn()) return true;
 
-        this.router.navigate(['/auth/login']);
+        this.router.navigate(['/dashboard']);
         return false;
     }
 }
