@@ -29,15 +29,7 @@ export class AuthService{
                 private notifyService: NotifyService,
                 private ngProgress: NgProgress){
 
-                    this.progressRef = this.ngProgress.ref();
-                    
-                    console.log("ngon init: ", this.progressRef);
-    }
-
-
-    ngOnDestroy() {
-        // Destroy the progress bar ref
-        this.progressRef.destroy();
+        this.progressRef = this.ngProgress.ref();
     }
 
     register(name: string, email: string, password: string)
@@ -89,11 +81,11 @@ export class AuthService{
     }
 
     getAuthUser(): User{
-        return JSON.parse(localStorage.getItem('jokerAppUser'));
+        return JSON.parse(localStorage.getItem('jokerAppUser')).data;
     }
 
     getAuthUserId():number{
-        return JSON.parse(localStorage.getItem('jokerAppUser')).id;
+        return JSON.parse(localStorage.getItem('jokerAppUser')).data.id;
     }
 
     getToken(): string {

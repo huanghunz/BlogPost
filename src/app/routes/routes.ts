@@ -5,6 +5,9 @@ import { AuthGurad } from '../guard/auth.guard';
 import { AuthedGurad } from '../guard/authed.guard';
 import { ProfileComponent } from '../profile/profile.component';
 
+import { WallComponent } from './../profile/wall/wall.component';
+import { EditProfileComponent } from './../profile/edit-profile/edit-profile.component';
+
 
 export const ROUTES = [
     {
@@ -24,6 +27,16 @@ export const ROUTES = [
     {
         path: "user/profile/:id",
         component: ProfileComponent,
-        canActivate:[AuthGurad]
+        canActivate:[AuthGurad],
+        children:[
+            {
+                path: '',
+                component: WallComponent
+            },
+            {
+                path: 'edit',
+                component: EditProfileComponent
+            }
+        ]
     }
 ]

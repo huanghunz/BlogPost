@@ -74,3 +74,16 @@ value or values and then returns a value.
 ********************************
 NG Progressbar Update
 https://github.com/MurhafSousli/ngx-progressbar/wiki/Integration
+
+********************************
+Binding on html
+
+ngModel: Creates a FormControl instance from a domain model
+         and binds it to a form control element
+
+[(ngModel)]="overRideRate" is the short form of
+[ngModel]="overRideRate" &&
+ (ngModelChange)="overRideRate = $event"
+
+[ngModel]="overRideRate" is to bind overRideRate to the input.value
+(ngModelChange)="overRideRate = $event" is to update overRideRate with the value of input.value when the change event was emitted.

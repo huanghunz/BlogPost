@@ -14,7 +14,11 @@
         </p>
         <br>
         <p class="text-center">
-          <a class="btn btn-info">Edit your profile</a>
+          <a class="btn btn-info"
+            *ngIf="isAuthUserProfile()"
+            routerLink="edit" 
+            >
+          Edit your profile</a>
         </p>
       </div>
     </div>
@@ -25,4 +29,9 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
+  
+<div class="col-lg-8" *ngIf="user">
+  <router-outlet></router-outlet>
+
+</div>
