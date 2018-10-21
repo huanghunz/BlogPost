@@ -8,26 +8,6 @@
             {{form.value | json }}  
             <!-- form value as json -->
 
-            <ul class="list-group">
-              <li class="list-group-item text-danger" *ngIf="userName.errors?.required && userName.touched">
-                The name is required
-
-              </li>
-              <li class="list-group-item text-danger"
-                  *ngIf="userEmail.errors?.required && userEmail.touched">
-                  Email is required
-  
-              </li>
-              <li class="list-group-item text-danger" *ngIf="userPassword.errors?.required && userPassword.touched">
-                  Password is required
-  
-              </li>
-              <li class="list-group-item text-danger" *ngIf="userPassword.errors?.minlength && userPassword.touched">
-                  Password must be longer than 6 characters
-  
-              </li>
-            </ul>
-
             <div class="form-group">
               <label for="name" class="control-label col-md-4">Full name</label>
 
@@ -35,8 +15,11 @@
                 <input id="name" type="text" #userName="ngModel" ngModel name="name" class="form-control" required
                 minlength="5" maxlength="8">
                 <div *ngIf="userName.errors &&(userName.touched || userName.dirty)" class ="aler alert-danger">
-                  <small [hidden]="userName.errors?.minlength ">
+                  <small [hidden]="!userName.errors?.minlength ">
                       Username is required (minimum 5 characters).
+                  </small>
+                  <small [hidden]="!userName.errors?.required ">
+                    Please enter username.
                   </small>
                 </div>
               </div>

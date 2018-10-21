@@ -30,20 +30,38 @@ export class AuthService{
     register(name: string, email: string, password: string)
     :Promise<UserData>
     {
-        let apiURL = `${CONFIG.API_URL}register`;
+        const registerURL = `${CONFIG.API_URL}register`;
         
-        return this.http.post<UserData>(apiURL,{name, email, password},  httpOptions)
+        return this.http.post<UserData>(registerURL,{name, email, password}, httpOptions)
         .toPromise()
         .then(res =>{
-            console.log(typeof(res));
             return new UserData(res.token, res.user);
           });
     }
 
-    LogUserIn(userData: UserData): void{
+    logUserIn(userData: UserData): void{
         localStorage.setItem('token', userData.token);
         localStorage.setItem('user', JSON.stringify(userData.user));
 
         this.router.navigate(['/dashboard']);
+    }
+
+    login(email: string, password: string)
+    :Promise<UserData>
+    {
+        const authenticateURL = `${CONFIG.API_URL}authenticate`;
+        return this.http.post<UserData>(authenticateURL,{ email: email, password: password}, httpOptions)
+            .toPromise()
+            .then(res =>{
+                return new UserData(res.token, res.user);
+            })
+    }
+
+    isLoggedIn():Boolean{
+        let token = localStorage.getItem('token');
+        let user = localStorage.getItem('user');
+        if (user && token) return true;
+        return false;
+        
     }
 }
