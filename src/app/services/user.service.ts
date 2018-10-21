@@ -27,7 +27,7 @@ export class UserService{
             headers: this.headers
           };
 
-        const url = `${CONFIG.API_URL}user/${id}`
+        const url = `${CONFIG.API_URL}/user/${id}`
         return this.httpc.get<User>(url, HTTP_OPTIONS)
                     .toPromise()
                     .then(res =>{

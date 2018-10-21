@@ -11,7 +11,8 @@ import { UserData } from './../data/userData'
 import { User } from '../data/user'
 import {Router} from "@angular/router"
 import { NotifyService } from "./notify.service";
-import { ReturnStatement } from "@angular/compiler";
+
+import { NgProgress, NgProgressRef } from '@ngx-progressbar/core';
 
 
 const HTTP_OPTIONS = {
@@ -21,23 +22,34 @@ const HTTP_OPTIONS = {
 @Injectable()
 export class AuthService{
     
-    public response:Observable<any>;
+    private progressRef: NgProgressRef;
 
     constructor(private http: HttpClient,
                 private router: Router,
-                private notifyService: NotifyService){
+                private notifyService: NotifyService,
+                private ngProgress: NgProgress){
+
+                    this.progressRef = this.ngProgress.ref();
+                    
+                    console.log("ngon init: ", this.progressRef);
+    }
+
+
+    ngOnDestroy() {
+        // Destroy the progress bar ref
+        this.progressRef.destroy();
     }
 
     register(name: string, email: string, password: string)
     :Promise<UserData>
     {
-        const registerURL = `${CONFIG.API_URL}register`;
+        const registerURL = `${CONFIG.API_URL}/register`;
         
         return this.http.post<UserData>(registerURL,{name, email, password}, HTTP_OPTIONS)
-        .toPromise()
-        .then(res =>{
-            return new UserData(res.token, res.user);
-          });
+                    .toPromise()
+                    .then(res =>{
+                        return new UserData(res.token, res.user);
+                    });
     }
 
     logUserIn(userData: UserData): void{
@@ -51,10 +63,13 @@ export class AuthService{
     login(email: string, password: string)
     :Promise<UserData>
     {
-        const authenticateURL = `${CONFIG.API_URL}authenticate`;
+        this.progressRef.start();
+
+        const authenticateURL = `${CONFIG.API_URL}/authenticate`;
         return this.http.post<UserData>(authenticateURL,{ email: email, password: password}, HTTP_OPTIONS)
             .toPromise()
             .then(res =>{
+                this.progressRef.complete();
                 return new UserData(res.token, res.user);
             })
     }

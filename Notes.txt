@@ -69,3 +69,8 @@ value or values and then returns a value.
 
 - Naming convention
 -- ex. init-caps.pipe.ts
+
+
+********************************
+NG Progressbar Update
+https://github.com/MurhafSousli/ngx-progressbar/wiki/Integration
