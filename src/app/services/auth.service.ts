@@ -5,20 +5,22 @@ import { CONFIG } from './../config/config'
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Observable, of, Observer } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+//import { catchError, map, tap } from 'rxjs/operators';
 import { UserData } from './../data/userData'
 import { User } from '../data/user'
 import {Router} from "@angular/router"
 import { NotifyService } from "./notify.service";
+import { ReturnStatement } from "@angular/compiler";
 
-const httpOptions = {
+
+const HTTP_OPTIONS = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
 @Injectable()
 export class AuthService{
-
+    
     public response:Observable<any>;
 
     constructor(private http: HttpClient,
@@ -31,7 +33,7 @@ export class AuthService{
     {
         const registerURL = `${CONFIG.API_URL}register`;
         
-        return this.http.post<UserData>(registerURL,{name, email, password}, httpOptions)
+        return this.http.post<UserData>(registerURL,{name, email, password}, HTTP_OPTIONS)
         .toPromise()
         .then(res =>{
             return new UserData(res.token, res.user);
@@ -39,8 +41,8 @@ export class AuthService{
     }
 
     logUserIn(userData: UserData): void{
-        localStorage.setItem('token', userData.token);
-        localStorage.setItem('user', JSON.stringify(userData.user));
+        localStorage.setItem('jokerAppToken', userData.token);
+        localStorage.setItem('jokerAppUser', JSON.stringify(userData.user));
 
         this.notifyService.nofity("Login Succeed!", 'success');
         this.router.navigate(['/dashboard']);
@@ -50,7 +52,7 @@ export class AuthService{
     :Promise<UserData>
     {
         const authenticateURL = `${CONFIG.API_URL}authenticate`;
-        return this.http.post<UserData>(authenticateURL,{ email: email, password: password}, httpOptions)
+        return this.http.post<UserData>(authenticateURL,{ email: email, password: password}, HTTP_OPTIONS)
             .toPromise()
             .then(res =>{
                 return new UserData(res.token, res.user);
@@ -58,15 +60,29 @@ export class AuthService{
     }
 
     isLoggedIn():Boolean{
-        let token = localStorage.getItem('token');
-        let user = localStorage.getItem('user');
+        let token = localStorage.getItem('jokerAppToken');
+        let user = localStorage.getItem('jokerAppUser');
+        
         if (user && token) return true;
         return false;
     }
 
     logout(){
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
+        localStorage.removeItem('jokerAppToken');
+        localStorage.removeItem('jokerAppUser');
         this.router.navigate(['/auth/login'])
     }
+
+    getAuthUser(): User{
+        return JSON.parse(localStorage.getItem('jokerAppUser'));
+    }
+
+    getAuthUserId():number{
+        return JSON.parse(localStorage.getItem('jokerAppUser')).id;
+    }
+
+    getToken(): string {
+        return localStorage.getItem('jokerAppToken');
+    }
+
 }

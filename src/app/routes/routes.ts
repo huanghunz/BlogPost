@@ -19,8 +19,7 @@ export const ROUTES = [
     },
     {
         path: 'auth/login',
-        component: LoginComponent,
-        canActivate:[AuthGurad]
+        component: LoginComponent
     },
     {
         path: "user/profile/:id",

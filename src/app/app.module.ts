@@ -17,6 +17,7 @@ import { AuthedGurad } from './guard/authed.guard';
 import { NotifyComponent } from './notify/notify.component';
 import { NotifyService } from './services/notify.service';
 import { ProfileComponent } from './profile/profile.component';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { ProfileComponent } from './profile/profile.component';
     HttpClientModule,
     RouterModule.forRoot(ROUTES)
   ],
-  providers: [AuthService, AuthGurad, AuthedGurad, NotifyService],
+  providers: [AuthService, AuthGurad, AuthedGurad, NotifyService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
