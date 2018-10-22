@@ -106,3 +106,8 @@ Reusing components
 - <div *ngFor="let joke of jokes">
         <app-joke [joke]="joke"></app-joke>
    </div>
+
+********************************
+ "postinstall": "ng build --aot -prod"
+ aot-> ahead of time compiler
+ prod-> product mode
