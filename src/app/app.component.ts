@@ -15,6 +15,7 @@ export class AppComponent {
 
   constructor(private authService: AuthService){
       this.user = this.authService.getAuthUser();
+      console.log("app, ", this.user);
   }
 
   isLoggedIn():Boolean{

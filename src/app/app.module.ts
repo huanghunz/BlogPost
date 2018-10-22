@@ -29,6 +29,8 @@ import { CreateJokeComponent } from './create-joke/create-joke.component';
 import { JokeService } from './services/joke.service';
 import { ProgressBarService } from './services/progressbar.service';
 import { JokeComponent } from './joke/joke.component';
+import { GravatarModule } from '@infinitycube/gravatar';
+import { HomeComponent } from './home/home.component'
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { JokeComponent } from './joke/joke.component';
     EditProfileComponent,
     FollowComponent,
     CreateJokeComponent,
-    JokeComponent
+    JokeComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,8 @@ import { JokeComponent } from './joke/joke.component';
     HttpClientModule,
     RouterModule.forRoot(ROUTES),
     NgProgressModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    GravatarModule,
   ],
   providers: [AuthService, AuthGurad, AuthedGurad,
               NotifyService, UserService, FollowService,

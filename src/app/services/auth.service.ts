@@ -56,7 +56,7 @@ export class AuthService{
         localStorage.setItem(CONFIG.USER, JSON.stringify(userData.user));
 
         this.notifyService.nofity("Login Succeed!", 'success');
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['']);
     }
 
     login(email: string, password: string):Promise<any>
