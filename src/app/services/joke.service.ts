@@ -73,9 +73,7 @@ export class JokeService{
 
                         let lastPage 
                         = `${CONFIG.API_URL}/jokes?page=${res.last_page}`
-                        console.log("enpoint null,  ", res.total );
-                        //this.progressBarService.complete();
-                        //return res;
+                        
                         return this.getAllJokes(lastPage);
                     }
                 });

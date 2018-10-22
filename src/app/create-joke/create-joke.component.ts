@@ -55,7 +55,6 @@ export class CreateJokeComponent implements OnInit {
     
     this.jokeService.createJoke(this.jokeForm.value)
                     .then( res=>{
-                      console.log("aftr create j" ,res);
                       this.router.navigate(
                         ['/user/profile', this.authService.getAuthUserId()])
                     })

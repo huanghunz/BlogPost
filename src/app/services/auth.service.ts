@@ -41,7 +41,7 @@ export class AuthService{
                     })
                     .catch( e =>{
                         this.progressBarService.complete();
-        console.log(e.error.error);
+        
                         let msg = e.error.error;
                         if (e.error.error == "invalid_credentials"){
                             msg = "Invalid email or password";
@@ -73,11 +73,7 @@ export class AuthService{
             .catch( e =>{
                 this.progressBarService.complete();
 
-                let msg = e.error.error;
-                if (e.error.error == "invalid_credentials"){
-                    msg = "Invalid email or password";
-                }
-                this.notifyService.nofity(msg, 'error');
+                this.notifyService.nofity(e.error.error, 'error');
                 return Promise.reject(e)
             })
     }
