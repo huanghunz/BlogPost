@@ -32,7 +32,7 @@ export class WallComponent implements OnInit {
   }
 
   jokeDeleted(jokeId){
-    console.log("??")
+    
     let joke = this.jokes.find((j)=>{
       return j.id == jokeId;
     })
