@@ -38,7 +38,17 @@ export class AuthService{
                     .toPromise()
                     .then(res =>{
                         return new UserData(res.token, res.user);
-                    });
+                    })
+                    .catch( e =>{
+                        this.progressBarService.complete();
+        console.log(e.error.error);
+                        let msg = e.error.error;
+                        if (e.error.error == "invalid_credentials"){
+                            msg = "Invalid email or password";
+                        }
+                        this.notifyService.nofity(msg, 'error');
+                        return Promise.reject(e)
+                    })
     }
 
     logUserIn(userData: UserData): void{
@@ -49,7 +59,7 @@ export class AuthService{
         this.router.navigate(['/dashboard']);
     }
 
-    login(email: string, password: string):Promise<UserData>
+    login(email: string, password: string):Promise<any>
     {
         this.progressBarService.start();
 
@@ -59,6 +69,16 @@ export class AuthService{
             .then(res =>{
                 this.progressBarService.complete();
                 return res as UserData;
+            })
+            .catch( e =>{
+                this.progressBarService.complete();
+
+                let msg = e.error.error;
+                if (e.error.error == "invalid_credentials"){
+                    msg = "Invalid email or password";
+                }
+                this.notifyService.nofity(msg, 'error');
+                return Promise.reject(e)
             })
     }
 
@@ -77,6 +97,10 @@ export class AuthService{
     }
 
     getAuthUser(): User{
+        let item = localStorage.getItem(CONFIG.USER);
+        if (item == null){
+            return null
+        }
         return JSON.parse(localStorage.getItem(CONFIG.USER)).data as User;
     }
 

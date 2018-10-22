@@ -19,6 +19,8 @@ export class LoginComponent implements OnInit {
                     .then( userData  =>{
                       this.authService.logUserIn(userData);
                     })
+                    .catch(e=>{
+                    })
   }
 
 }

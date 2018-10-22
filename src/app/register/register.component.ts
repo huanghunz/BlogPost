@@ -23,5 +23,8 @@ export class RegisterComponent implements OnInit {
       .then( (userData) =>{
         this.authService.logUserIn(userData);
       })
+      .catch(e=>{
+        
+      })
   }
 }
