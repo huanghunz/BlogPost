@@ -1,6 +1,7 @@
 <div *ngIf="data">
     <div *ngFor=" let joke of data.data">
-        <app-joke [joke]="joke"></app-joke>
+        <app-joke [joke]="joke" [editable] = "false"
+        >></app-joke>
     </div>
     <br>
     <br>

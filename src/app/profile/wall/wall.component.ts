@@ -32,4 +32,16 @@ export class WallComponent implements OnInit {
                      });
   }
 
+  jokeDeleted(jokeId){
+    console.log("??")
+    let joke = this.jokes.find((j)=>{
+      return j.id == jokeId;
+    })
+
+    let jokeIndex = this.jokes.indexOf(joke);
+
+    // Remove it
+    this.jokes.splice(jokeIndex, 1);
+  }
+
 }

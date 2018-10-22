@@ -27,6 +27,9 @@ export class JokeService{
     }
 
     createJoke(joke):Promise<any>{
+
+        this.progressBarService.start();
+
         const url = `${CONFIG.API_URL}/jokes`
 
         let body = {
@@ -39,6 +42,7 @@ export class JokeService{
         return this.httpc.post(url, body, options)
                          .toPromise()
                          .then(res =>{
+                            this.progressBarService.complete();
                              return res;
                          });
     }
@@ -75,5 +79,44 @@ export class JokeService{
                         return this.getAllJokes(lastPage);
                     }
                 });
+    }
+
+    updateJoke(id : number, joke){
+
+        this.progressBarService.start();
+
+        const url = `${CONFIG.API_URL}/jokes/${id}`
+
+        let body = {
+            title: joke.title, joke: joke.content
+        }
+        let options = {
+            headers: this.headers
+        }
+
+        return this.httpc.put(url, body, options)
+                         .toPromise()
+                         .then(res =>{
+                            this.progressBarService.complete();
+                            return res;
+                         });
+    }
+
+    deleteJoke(id : number){
+
+        this.progressBarService.start();
+
+        const url = `${CONFIG.API_URL}/jokes/${id}`
+
+        let options = {
+            headers: this.headers
+        }
+
+        return this.httpc.delete(url, options)
+                         .toPromise()
+                         .then(res =>{
+                            this.progressBarService.complete();
+                            return res;
+                         });
     }
 }

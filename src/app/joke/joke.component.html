@@ -2,18 +2,53 @@
 <div class="panel panel-default" *ngIf="joke">
         
   <div class="panel-heading">
-    <span> {{joke.title}} </span>
-    <span class="pull-right">
+    <span *ngIf="!isEditing"> {{joke.title}} </span>
+     
+    <span *ngIf="isEditing"> 
+      <input type="text" class="form-control" [formControl]="title" >
+    </span>
+    <span *ngIf="!isEditing" class="pull-right">
       <a [routerLink]="['/user/profile', joke.user.id]"> {{ joke.user.name }}</a>
     </span>  
   </div>
 
   <div class="panel=body">
-  <p class="text-left" style="padding: 18px">
-      {{joke.joke}}
+  <p class="text-left" *ngIf="!isEditing" style="padding: 18px">
+      {{ joke.joke }}
   </p>
+
+  <p class="text-left" *ngIf="isEditing" style="padding: 18px">
+    <textarea rows="10" class="form-control" [formControl]="content">
+      
+    </textarea>
+  </p>
+
   </div>
   <div class="panel-footer">
-    {{ joke.created_at | prettyDate}}
-  </div>
+    {{ joke.created_at | prettyDate }}
+
+    <span *ngIf="editable">
+    <span *ngIf="canModify() && !isEditing" >
+        
+        <button class="btn btn-xs btn-danger pull-right" (click)="delete()">
+            Delete
+        </button>
+        <button class="btn btn-xs btn-info pull-right" (click)="edit()" style="margin-right: 5px">
+            Edit
+        </button>
+    </span>
+    <span *ngIf="isEditing" >
+        <button class="btn btn-xs btn-primary pull-right"
+         (click)="update()"
+         [disabled]="title.invalid || content.invalid">
+            Save
+        </button>
+        <button class="btn btn-xs btn-warning pull-right"
+         (click)="cancel()"
+         style="margin-right: 5px">
+            Cancel
+        </button>
+    </span>
+  </span>
+</div>
 </div>
